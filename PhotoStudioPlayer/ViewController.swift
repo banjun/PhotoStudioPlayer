@@ -24,8 +24,6 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
     private let videoDataQueue = DispatchQueue.global(qos: .userInitiated)
     private var movieOutput: AVCaptureMovieFileOutput?
 
-    private let chromaKeyFilter = ChromaKeyFilter.filter()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.wantsLayer = true
@@ -84,7 +82,7 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
 
             previewLayer = AVCaptureVideoPreviewLayer(session: session)
             view.layerUsesCoreImageFilters = true
-            previewLayer?.filters = [chromaKeyFilter]
+            previewLayer?.filters = [ChromaKeyFilter.filter()]
             self.session = session
             session.startRunning()
         } catch {
@@ -92,7 +90,9 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
     }
 
+    private let sampleBufferChromaKeyFilter = ChromaKeyFilter.filter()
     private var numberOfCapturesNeeded = 0
+    private let captureFolder = URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("Documents")
 
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard numberOfCapturesNeeded > 0 else {
@@ -103,11 +103,12 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
         guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
 
         let image = CIImage(cvImageBuffer: imageBuffer)
-        let bitmap = NSBitmapImageRep(ciImage: image)
+        sampleBufferChromaKeyFilter.setValue(image, forKey: kCIInputImageKey)
+        guard let outputImage = sampleBufferChromaKeyFilter.outputImage else { return }
+        let bitmap = NSBitmapImageRep(ciImage: outputImage)
         let png = bitmap.representation(using: .png, properties: [:])
         do {
-            try png?.write(to: URL(fileURLWithPath: NSHomeDirectory())
-                .appendingPathComponent("Documents")
+            try png?.write(to: captureFolder
                 .appendingPathComponent(UUID().uuidString)
                 .appendingPathExtension("png"))
         } catch {
@@ -126,5 +127,9 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
 
     @IBAction func captureCurrentFrame(_ sender: AnyObject?) {
         videoDataQueue.sync {numberOfCapturesNeeded += 1}
+    }
+
+    @IBAction func openCaptureFolder(_ sender: AnyObject?) {
+        NSWorkspace.shared.open(captureFolder)
     }
 }

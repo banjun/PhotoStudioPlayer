@@ -358,6 +358,12 @@ DQ
                                                 <binding destination="Voe-Tx-rLC" name="enabled" keyPath="enabledCaptureFrame" id="F1W-ff-cTF"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Open Capture Folder in Finder" id="Fha-cb-PbQ">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="openCaptureFolder:" target="Ady-hI-5gd" id="M8r-Dg-Wz8"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
