@@ -54,6 +54,8 @@ class ViewController: NSViewController {
             let input = try AVCaptureDeviceInput(device: device)
             session.addInput(input)
             previewLayer = AVCaptureVideoPreviewLayer(session: session)
+            view.layerUsesCoreImageFilters = true
+            previewLayer?.filters = [ChromaKeyFilter.filter()]
             self.session = session
             session.startRunning()
         } catch {
