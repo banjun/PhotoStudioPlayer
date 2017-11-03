@@ -1,5 +1,7 @@
 # PhotoStudioPlayer
 
+demo video: <https://twitter.com/banjun/status/926332370252263424>
+
 ## Usage
 
 any guidance are not implemented.
