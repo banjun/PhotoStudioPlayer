@@ -1,11 +1,17 @@
 import Cocoa
 
+let appDelegate = NSApp.delegate as! AppDelegate
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    static let AppGlobalStateDidChange = NSNotification.Name(rawValue: "AppGlobalStateDidChange")
+
+    @objc var enabledCaptureFrame = false {
+        didSet {
+            NotificationCenter.default.post(name: AppDelegate.AppGlobalStateDidChange, object: self)
+        }
+    }
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let w = NSApp.mainWindow
-        w?.isOpaque = false
-        w?.backgroundColor = .clear
-        w?.hasShadow = false
     }
 }
