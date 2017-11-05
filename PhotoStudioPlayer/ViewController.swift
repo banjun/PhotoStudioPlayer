@@ -32,6 +32,7 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
 
         NotificationCenter.default.addObserver(forName: AppDelegate.AppGlobalStateDidChange, object: nil, queue: nil) { [weak self] _ in
             self?.readyCaptureFrameIfNeeded()
+            self?.changeWindowLevelIfNeeded()
         }
     }
 
@@ -122,6 +123,14 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
             session?.addOutput(videoDataOutput)
         } else {
             session?.removeOutput(videoDataOutput)
+        }
+    }
+
+    private func changeWindowLevelIfNeeded() {
+        if appDelegate.viewerAboveOtherApps {
+            view.window?.level = .floating
+        } else {
+            view.window?.level = .normal
         }
     }
 
