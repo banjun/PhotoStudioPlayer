@@ -32,6 +32,19 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
             self?.readyCaptureFrameIfNeeded()
             self?.changeWindowLevelIfNeeded()
         }
+
+        NotificationCenter.default.addObserver(forName: .AVCaptureSessionRuntimeError, object: nil, queue: nil) { n in
+            if n.object as? AVCaptureSession != self.session {
+                return
+            }
+            if let error = n.userInfo?["AVCaptureSessionErrorKey"] as? Error {
+                if let window = self.view.window {
+                    self.presentError(error, modalFor: window, delegate: self, didPresent: #selector(self.closeWindow(_:)), contextInfo: nil)
+                } else {
+                    self.presentError(error)
+                }
+            }
+        }
     }
 
     override func viewDidLayout() {
@@ -123,5 +136,9 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
 
     @IBAction func openCaptureFolder(_ sender: AnyObject?) {
         NSWorkspace.shared.open(captureFolder)
+    }
+
+    @objc private func closeWindow(_ sender: Any) {
+        view.window?.close()
     }
 }
