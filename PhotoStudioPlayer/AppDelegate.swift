@@ -53,7 +53,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             return
         }
 
-        guard let window = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil).instantiateInitialController() as? NSWindowController else {
+        guard let window = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Window")) as? NSWindowController else {
             return
         }
         guard let vc = window.contentViewController as? ViewController else {
