@@ -338,6 +338,14 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Devices" id="NLq-Ir-fVl">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Devices" id="dO0-Ut-G0L">
+                                    <connections>
+                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="CwR-Yz-pDz"/>
+                                    </connections>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Control" id="GV9-8g-wME">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Control" id="tNS-ZI-9Uu">
