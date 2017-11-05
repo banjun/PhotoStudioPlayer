@@ -16,7 +16,7 @@ any guidance are not implemented.
 4. select device from "Devices" menu
 4. make sure capture image is blue backed :cool: :eyes:
 
-## Troble shoots
+## Troubleshoots
 ### Can't find my iPhone on device menu
 Try to reconnect iPhone, restart app, reboot iPhone.
 
