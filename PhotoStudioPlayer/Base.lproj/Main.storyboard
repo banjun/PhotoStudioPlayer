@@ -396,6 +396,13 @@ DQ
                                                 <action selector="toggleFullScreen:" target="Ady-hI-5gd" id="dU3-MA-1Rq"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="JBn-BL-tys"/>
+                                        <menuItem title="Viewer Above Other Apps" id="XJm-T0-exO" userLabel="Viewer Above Other Apps">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <binding destination="Voe-Tx-rLC" name="value" keyPath="viewerAboveOtherApps" id="Nrt-A4-6p3"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>

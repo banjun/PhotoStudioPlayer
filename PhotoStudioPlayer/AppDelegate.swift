@@ -12,6 +12,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
+    @objc var viewerAboveOtherApps = false {
+        didSet {
+            NotificationCenter.default.post(name: AppDelegate.AppGlobalStateDidChange, object: self)
+        }
+    }
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
     }
 }
