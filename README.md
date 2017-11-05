@@ -4,6 +4,10 @@ demo video: <https://twitter.com/banjun/status/926332370252263424>
 
 ## Usage
 
+Attach your iPhone to Mac with lightning cable, launch PhotoStudioPlayer, and select it in `Devices` menu.
+
+![a](Documents/menu-devices.png)
+
 any guidance are not implemented.
 
 1. make sure your iPhone is connected to Mac with cable
