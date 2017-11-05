@@ -1,10 +1,10 @@
 import Cocoa
-import CoreMediaIO
 import AVFoundation
-import CoreImage
 
 class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
-    private var device: AVCaptureDevice?
+    var device: AVCaptureDevice? = nil {
+        didSet { setupPreviewLayer() }
+    }
     private var session: AVCaptureSession?
     private var previewLayer: AVCaptureVideoPreviewLayer? {
         didSet {
@@ -27,8 +27,6 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
     override func viewDidLoad() {
         super.viewDidLoad()
         view.wantsLayer = true
-        fetchScreenRecordingDevice()
-        setupPreviewLayer()
 
         NotificationCenter.default.addObserver(forName: AppDelegate.AppGlobalStateDidChange, object: nil, queue: nil) { [weak self] _ in
             self?.readyCaptureFrameIfNeeded()
@@ -54,21 +52,6 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
 //            w.titleVisibility = .visible
             w.isMovableByWindowBackground = true
         }
-    }
-
-    func fetchScreenRecordingDevice() {
-        var prop = CMIOObjectPropertyAddress(
-            mSelector: CMIOObjectPropertySelector(kCMIOHardwarePropertyAllowScreenCaptureDevices),
-            mScope: CMIOObjectPropertyScope(kCMIOObjectPropertyScopeGlobal),
-            mElement: CMIOObjectPropertyElement(kCMIOObjectPropertyElementMaster))
-        var allow: UInt32 = 1;
-        CMIOObjectSetPropertyData(CMIOObjectID(kCMIOObjectSystemObject), &prop,
-                                  0, nil,
-                                  UInt32(MemoryLayout.size(ofValue: allow)), &allow)
-
-        let devices = AVCaptureDevice.devices().filter {$0.hasMediaType(.muxed)}
-        NSLog("%@", "devices = \(devices)")
-        device = devices.first {$0.hasMediaType(.muxed)}
     }
 
     func setupPreviewLayer() {

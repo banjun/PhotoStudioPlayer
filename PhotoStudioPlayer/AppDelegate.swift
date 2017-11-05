@@ -49,6 +49,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     @objc private func openWindow(_ sender: NSMenuItem) {
+        guard let uniqueID = sender.representedObject as? String else {
+            return
+        }
+
+        guard let window = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil).instantiateInitialController() as? NSWindowController else {
+            return
+        }
+        guard let vc = window.contentViewController as? ViewController else {
+            return
+        }
+        vc.device = self.availableDevices().first { $0.uniqueID == uniqueID }
+        window.showWindow(nil)
     }
 
     private func availableDevices() -> [AVCaptureDevice] {
