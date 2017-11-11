@@ -143,20 +143,17 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
 
     @objc private func switchToCoolStage(_ sender: AnyObject?) {
-        let filter = ChromaKeyFilter.filter(0.15, green: 0.48, blue: 1, threshold: 0.4)
-        sampleBufferChromaKeyFilter = filter
-        previewLayer?.filters = [filter]
+        sampleBufferChromaKeyFilter = ChromaKeyFilter.filter(0.15, green: 0.48, blue: 1, threshold: 0.4)
+        previewLayer?.filters = [ChromaKeyFilter.filter(0.15, green: 0.48, blue: 1, threshold: 0.4)]
     }
 
     @objc private func switchToCuteStage(_ sender: AnyObject?) {
-        let filter = ChromaKeyFilter.filter(1, green: 3/255.0, blue: 102/255.0, threshold: 0.3)
-        sampleBufferChromaKeyFilter = filter
-        previewLayer?.filters = [filter]
+        sampleBufferChromaKeyFilter = ChromaKeyFilter.filter(1, green: 3/255.0, blue: 102/255.0, threshold: 0.3)
+        previewLayer?.filters = [ChromaKeyFilter.filter(1, green: 3/255.0, blue: 102/255.0, threshold: 0.3)]
     }
 
     @objc private func switchToPassionStage(_ sender: AnyObject?) {
-        let filter = ChromaKeyFilter.filter(251/255.0, green: 179/255.0, blue: 2/255.0, threshold: 0.3)
-        sampleBufferChromaKeyFilter = filter
-        previewLayer?.filters = [filter]
+        sampleBufferChromaKeyFilter = ChromaKeyFilter.filter(251/255.0, green: 179/255.0, blue: 2/255.0, threshold: 0.3)
+        previewLayer?.filters = [ChromaKeyFilter.filter(251/255.0, green: 179/255.0, blue: 2/255.0, threshold: 0.3)]
     }
 }
