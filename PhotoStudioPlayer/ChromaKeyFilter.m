@@ -4,13 +4,13 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation ChromaKeyFilter
 
 // see: https://developer.apple.com/library/content/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_filer_recipes/ci_filter_recipes.html
-+ (nonnull CIFilter *)filter {
+
++ (nonnull CIFilter *)filter:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue threshold:(CGFloat)threshold {
     // Allocate memory
     const unsigned int size = 64;
     float *cubeData = (float *)malloc (size * size * size * sizeof (float) * 4);
     float rgb[3], hsv[3], *c = cubeData;
-    float target[] = {0.15,0.48,1};
-    float threshold = 0.4;
+    float target[] = { red, green, blue };
 
     // Populate cube with a simple gradient going from 0 to 1
     for (int z = 0; z < size; z++){
