@@ -1,1 +1,2 @@
 scheme 'PhotoStudioPlayer'
+output_directory './build'
