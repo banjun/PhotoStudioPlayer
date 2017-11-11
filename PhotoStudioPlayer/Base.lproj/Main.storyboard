@@ -375,6 +375,31 @@ DQ
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Stage" id="G3e-WW-p4Y" userLabel="Stage">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Stage" id="uHs-UR-jr3">
+                                    <items>
+                                        <menuItem title="Cute" id="jqx-gD-2He">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="switchToCuteStage:" target="Ady-hI-5gd" id="2Xh-SO-qq6"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Cool" id="oON-db-o6n">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="switchToCoolStage:" target="Ady-hI-5gd" id="15I-Ck-B6r"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Passion" id="jhn-6h-9Xu">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="switchToPassionStage:" target="Ady-hI-5gd" id="pZr-IF-TOO"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="View" id="H8h-7b-M4v">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="View" id="HyV-fh-RgO">
