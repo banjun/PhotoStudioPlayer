@@ -5,7 +5,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // see: https://developer.apple.com/library/content/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_filer_recipes/ci_filter_recipes.html
 
-+ (nonnull CIFilter *)filter:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue threshold:(CGFloat)threshold {
++ (nonnull CIFilter *)filter:(float)red green:(float)green blue:(float)blue threshold:(float)threshold {
     // Allocate memory
     const unsigned int size = 64;
     float *cubeData = (float *)malloc (size * size * size * sizeof (float) * 4);

@@ -3,7 +3,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ChromaKeyFilter : NSObject
 
-+ (CIFilter *)filter:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue threshold:(CGFloat)threshold;
++ (CIFilter *)filter:(float)red green:(float)green blue:(float)blue threshold:(float)threshold;
 
 @end
 
