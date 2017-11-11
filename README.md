@@ -14,7 +14,8 @@ any guidance are not implemented.
 2. make sure your iPhone is visible as video source in QuickTime Player
 3. launch PhotoStudioPlayer
 4. select device from "Devices" menu
-4. make sure capture image is blue backed :cool: :eyes:
+5. switch background color from "Stage" menu.
+6. make sure capture image is pink/blue/yellow backed :cool: :eyes:
 
 ## Troubleshoots
 ### Can't find my iPhone on device menu

@@ -79,7 +79,7 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
 
             previewLayer = AVCaptureVideoPreviewLayer(session: session)
             view.layerUsesCoreImageFilters = true
-            previewLayer?.filters = [ChromaKeyFilter.filter()]
+            switchToCoolStage(nil)
             self.session = session
             session.startRunning()
         } catch {
@@ -87,7 +87,7 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
     }
 
-    private let sampleBufferChromaKeyFilter = ChromaKeyFilter.filter()
+    private var sampleBufferChromaKeyFilter: CIFilter? = nil
     private var numberOfCapturesNeeded = 0
     private let captureFolder = URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("Documents")
 
@@ -100,8 +100,8 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
         guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
 
         let image = CIImage(cvImageBuffer: imageBuffer)
-        sampleBufferChromaKeyFilter.setValue(image, forKey: kCIInputImageKey)
-        guard let outputImage = sampleBufferChromaKeyFilter.outputImage else { return }
+        sampleBufferChromaKeyFilter?.setValue(image, forKey: kCIInputImageKey)
+        guard let outputImage = sampleBufferChromaKeyFilter?.outputImage else { return }
         let bitmap = NSBitmapImageRep(ciImage: outputImage)
         let png = bitmap.representation(using: .png, properties: [:])
         do {
@@ -140,5 +140,20 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
 
     @objc private func closeWindow(_ sender: Any) {
         view.window?.close()
+    }
+
+    @objc private func switchToCoolStage(_ sender: AnyObject?) {
+        sampleBufferChromaKeyFilter = ChromaKeyFilter.filter(0.15, green: 0.48, blue: 1, threshold: 0.4)
+        previewLayer?.filters = [ChromaKeyFilter.filter(0.15, green: 0.48, blue: 1, threshold: 0.4)]
+    }
+
+    @objc private func switchToCuteStage(_ sender: AnyObject?) {
+        sampleBufferChromaKeyFilter = ChromaKeyFilter.filter(1, green: 3/255.0, blue: 102/255.0, threshold: 0.3)
+        previewLayer?.filters = [ChromaKeyFilter.filter(1, green: 3/255.0, blue: 102/255.0, threshold: 0.3)]
+    }
+
+    @objc private func switchToPassionStage(_ sender: AnyObject?) {
+        sampleBufferChromaKeyFilter = ChromaKeyFilter.filter(251/255.0, green: 179/255.0, blue: 2/255.0, threshold: 0.3)
+        previewLayer?.filters = [ChromaKeyFilter.filter(251/255.0, green: 179/255.0, blue: 2/255.0, threshold: 0.3)]
     }
 }
