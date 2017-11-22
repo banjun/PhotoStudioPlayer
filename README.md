@@ -1,5 +1,11 @@
 # PhotoStudioPlayer
 
+<h3 align="center">
+  <a href="https://github.com/banjun/PhotoStudioPlayer/releases">
+    <img src="https://raw.githubusercontent.com/banjun/PhotoStudioPlayer/m%40ster/PhotoStudioPlayer/Assets.xcassets/AppIcon.appiconset/PhotoStudioPlayer Icon256.png" width="128" />
+  </a>
+</h3>
+
 demo video: <https://twitter.com/banjun/status/926332370252263424>
 
 ## Usage
