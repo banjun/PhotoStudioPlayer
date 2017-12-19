@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13CD48001FE9CA96002F23F8 /* ChromaKeyFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CD47FF1FE9CA96002F23F8 /* ChromaKeyFilter.swift */; };
 		EA7073111FAC34FC00EF0DC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7073101FAC34FC00EF0DC9 /* AppDelegate.swift */; };
 		EA7073131FAC34FC00EF0DC9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7073121FAC34FC00EF0DC9 /* ViewController.swift */; };
 		EA7073151FAC34FC00EF0DC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7073141FAC34FC00EF0DC9 /* Assets.xcassets */; };
 		EA7073181FAC34FC00EF0DC9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA7073161FAC34FC00EF0DC9 /* Main.storyboard */; };
-		EA7073231FAC35D600EF0DC9 /* ChromaKeyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7073221FAC35D600EF0DC9 /* ChromaKeyFilter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13CD47FF1FE9CA96002F23F8 /* ChromaKeyFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyFilter.swift; sourceTree = "<group>"; };
 		EA70730D1FAC34FC00EF0DC9 /* PhotoStudioPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoStudioPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA7073101FAC34FC00EF0DC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA7073121FAC34FC00EF0DC9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,9 +23,6 @@
 		EA7073171FAC34FC00EF0DC9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EA7073191FAC34FC00EF0DC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA70731A1FAC34FC00EF0DC9 /* PhotoStudioPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PhotoStudioPlayer.entitlements; sourceTree = "<group>"; };
-		EA7073201FAC35D600EF0DC9 /* PhotoStudioPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PhotoStudioPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
-		EA7073211FAC35D600EF0DC9 /* ChromaKeyFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChromaKeyFilter.h; sourceTree = "<group>"; };
-		EA7073221FAC35D600EF0DC9 /* ChromaKeyFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChromaKeyFilter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +39,6 @@
 		EA7073041FAC34FC00EF0DC9 = {
 			isa = PBXGroup;
 			children = (
-				EA7073201FAC35D600EF0DC9 /* PhotoStudioPlayer-Bridging-Header.h */,
 				EA70730F1FAC34FC00EF0DC9 /* PhotoStudioPlayer */,
 				EA70730E1FAC34FC00EF0DC9 /* Products */,
 			);
@@ -60,8 +57,7 @@
 			children = (
 				EA7073101FAC34FC00EF0DC9 /* AppDelegate.swift */,
 				EA7073121FAC34FC00EF0DC9 /* ViewController.swift */,
-				EA7073211FAC35D600EF0DC9 /* ChromaKeyFilter.h */,
-				EA7073221FAC35D600EF0DC9 /* ChromaKeyFilter.m */,
+				13CD47FF1FE9CA96002F23F8 /* ChromaKeyFilter.swift */,
 				EA7073141FAC34FC00EF0DC9 /* Assets.xcassets */,
 				EA7073161FAC34FC00EF0DC9 /* Main.storyboard */,
 				EA7073191FAC34FC00EF0DC9 /* Info.plist */,
@@ -143,7 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA7073131FAC34FC00EF0DC9 /* ViewController.swift in Sources */,
-				EA7073231FAC35D600EF0DC9 /* ChromaKeyFilter.m in Sources */,
+				13CD48001FE9CA96002F23F8 /* ChromaKeyFilter.swift in Sources */,
 				EA7073111FAC34FC00EF0DC9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,7 +279,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.banjun.PhotoStudioPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "PhotoStudioPlayer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
@@ -303,7 +298,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.banjun.PhotoStudioPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "PhotoStudioPlayer-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
