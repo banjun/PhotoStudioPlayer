@@ -56,17 +56,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             return
         }
 
-        guard let window = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Window")) as? NSWindowController else {
+        guard let windowController = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Window")) as? NSWindowController else {
             return
         }
-        window.window?.delegate = windowDelegate
-        self.windowControllers.append(window)
+        windowController.window?.delegate = windowDelegate
+        self.windowControllers.append(windowController)
 
-        guard let vc = window.contentViewController as? ViewController else {
+        guard let vc = windowController.contentViewController as? ViewController else {
             return
         }
         vc.device = self.availableDevices().first { $0.uniqueID == uniqueID }
-        window.showWindow(nil)
+        windowController.showWindow(nil)
     }
 
     private func availableDevices() -> [AVCaptureDevice] {
