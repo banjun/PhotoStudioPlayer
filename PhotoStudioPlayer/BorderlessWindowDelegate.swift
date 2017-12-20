@@ -19,6 +19,6 @@ class BorderlessWindowDelegate: NSObject, NSWindowDelegate {
         guard let window = notification.object as? NSWindow else {
             return
         }
-        window.styleMask = [.titled, .fullSizeContentView, .borderless]
+        window.styleMask = [.fullSizeContentView, .borderless]
     }
 }
