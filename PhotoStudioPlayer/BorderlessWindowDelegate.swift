@@ -12,13 +12,13 @@ class BorderlessWindowDelegate: NSObject, NSWindowDelegate {
         guard let window = notification.object as? NSWindow else {
             return
         }
-        window.styleMask = [.titled, .closable, .miniaturizable, .resizable]
+        window.styleMask = [.titled, .fullSizeContentView, .closable, .miniaturizable, .resizable]
 
     }
     func windowDidResignKey(_ notification: Notification) {
         guard let window = notification.object as? NSWindow else {
             return
         }
-        window.styleMask = .borderless
+        window.styleMask = [.titled, .fullSizeContentView, .borderless]
     }
 }
