@@ -11,6 +11,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     static let AppGlobalStateDidChange = NSNotification.Name(rawValue: "AppGlobalStateDidChange")
 
     private var windowControllers = [NSWindowController]()
+    private let windowDelegate = BorderlessWindowDelegate()
 
     @objc var enabledCaptureFrame = false {
         didSet {
@@ -58,6 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         guard let window = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Window")) as? NSWindowController else {
             return
         }
+        window.window?.delegate = windowDelegate
         self.windowControllers.append(window)
 
         guard let vc = window.contentViewController as? ViewController else {
