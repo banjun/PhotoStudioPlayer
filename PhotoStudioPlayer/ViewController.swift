@@ -124,7 +124,8 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
 
     private func changeWindowLevelIfNeeded() {
         if appDelegate.viewerAboveOtherApps {
-            view.window?.level = .floating
+            // use .popUpMenu instead of .floating to show on fullscreen app(e.g. Keynote)
+            view.window?.level = .popUpMenu
         } else {
             view.window?.level = .normal
         }
