@@ -56,7 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             return
         }
 
-        guard let windowController = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Window")) as? NSWindowController else {
+        guard let windowController = NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "Window") as? NSWindowController else {
             return
         }
         windowController.window?.delegate = windowDelegate

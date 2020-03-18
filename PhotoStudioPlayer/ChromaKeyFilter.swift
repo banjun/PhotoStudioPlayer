@@ -13,8 +13,8 @@ class ChromaKeyFilter {
     static func filter(_ targetRed: Float, green targetGreen: Float, blue targetBlue: Float, threshold: Float) -> CIFilter {
         let size = 64
         var data = Data(count: size * size * size * MemoryLayout<Float>.size * 4)
-        data.withUnsafeMutableBytes { (cubeData: UnsafeMutablePointer<Float>) -> Void in
-            var c = cubeData
+        data.withUnsafeMutableBytes { (cubeData: UnsafeMutableRawBufferPointer) -> Void in
+            var c = cubeData.bindMemory(to: Float.self).baseAddress!
             // Populate cube with a simple gradient going from 0 to 1
             for z in 0...size-1 {
                 let blue = Float(z) / Float(size-1) // Blue value
