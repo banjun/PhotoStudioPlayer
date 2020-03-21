@@ -1,2 +1,5 @@
 scheme 'PhotoStudioPlayer'
 output_directory './build'
+export_method 'developer-id'
+codesigning_identity 'Developer ID Application'
+skip_package_pkg true
