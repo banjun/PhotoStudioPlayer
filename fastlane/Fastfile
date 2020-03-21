@@ -1,0 +1,9 @@
+default_platform(:mac)
+
+platform :mac do
+  desc "archive mac app"
+  lane :archive do
+    app = gym
+    notarize(package: app)
+  end
+end
