@@ -1,6 +1,13 @@
 import Cocoa
 import AVFoundation
 
+extension UserDefaults {
+    var volume: Float {
+        get {object(forKey: "volume") as? Float ?? 0.5}
+        set {set(newValue, forKey: "volume")}
+    }
+}
+
 class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     var device: AVCaptureDevice? = nil {
         didSet { setupPreviewLayer() }
@@ -23,6 +30,16 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
     }()
     private let videoDataQueue = DispatchQueue.global(qos: .userInitiated)
     private var movieOutput: AVCaptureMovieFileOutput?
+
+    private var audioOutput: AVCaptureAudioPreviewOutput? {
+        didSet {
+            setVolume(UserDefaults.standard.volume)
+        }
+    }
+    private func setVolume(_ value: Float) {
+        audioOutput?.volume = value
+        UserDefaults.standard.volume = value
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +93,10 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
             let input = try AVCaptureDeviceInput(device: device)
             session.addInput(input)
             readyCaptureFrameIfNeeded()
+
+            let audioOutput = AVCaptureAudioPreviewOutput()
+            self.audioOutput = audioOutput
+            session.addOutput(audioOutput)
 
             previewLayer = AVCaptureVideoPreviewLayer(session: session)
             view.layerUsesCoreImageFilters = true
