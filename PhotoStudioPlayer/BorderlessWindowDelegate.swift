@@ -13,12 +13,15 @@ class BorderlessWindowDelegate: NSObject, NSWindowDelegate {
             return
         }
         window.styleMask = [.titled, .fullSizeContentView, .closable, .miniaturizable, .resizable]
-
     }
     func windowDidResignKey(_ notification: Notification) {
         guard let window = notification.object as? NSWindow else {
             return
         }
-        window.styleMask = [.fullSizeContentView, .borderless]
+        if #available(macOS 10.13, *) {
+            window.styleMask = [.titled, .fullSizeContentView, .borderless]
+        } else {
+            window.styleMask = [.fullSizeContentView, .borderless]
+        }
     }
 }
