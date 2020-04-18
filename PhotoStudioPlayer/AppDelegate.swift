@@ -34,6 +34,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         CMIOObjectSetPropertyData(CMIOObjectID(kCMIOObjectSystemObject), &prop,
                                   0, nil,
                                   UInt32(MemoryLayout.size(ofValue: allow)), &allow)
+
+        NotificationCenter.default.addObserver(forName: NSWindow.willCloseNotification, object: nil, queue: nil) { n in
+            guard let w = n.object as? NSWindow else { return }
+            self.windowControllers = self.windowControllers.filter {$0.window != w}
+        }
     }
 
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -52,9 +57,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     @objc private func openWindow(_ sender: NSMenuItem) {
-        guard let uniqueID = sender.representedObject as? String else {
-            return
-        }
+        guard let uniqueID = sender.representedObject as? String,
+            let device = (availableDevices().first {$0.uniqueID == uniqueID}) else { return }
 
         guard let windowController = NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "Window") as? NSWindowController else {
             return
@@ -65,7 +69,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         guard let vc = windowController.contentViewController as? ViewController else {
             return
         }
-        vc.device = self.availableDevices().first { $0.uniqueID == uniqueID }
+        vc.setDevice(device)
         windowController.showWindow(nil)
     }
 
