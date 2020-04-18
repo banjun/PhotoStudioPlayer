@@ -1,60 +1,31 @@
 import Cocoa
 import AVFoundation
 
-extension UserDefaults {
-    var volume: Float {
-        get {object(forKey: "volume") as? Float ?? 0.5}
-        set {set(newValue, forKey: "volume")}
-    }
-}
-
 class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
-    var device: AVCaptureDevice? = nil {
-        didSet { setupPreviewLayer() }
-    }
-    private var session: AVCaptureSession?
-    private var previewLayer: AVCaptureVideoPreviewLayer? {
+    private var session: CaptureSession? {
         didSet {
-            oldValue?.removeFromSuperlayer()
-            previewLayer?.videoGravity = .resizeAspect
-            guard let layer = view.layer, let newValue = previewLayer else { return }
+            oldValue?.previewLayer.removeFromSuperlayer()
+            session?.previewLayer.videoGravity = .resizeAspect
+            guard let layer = view.layer, let newValue = session?.previewLayer else { return }
             newValue.frame = layer.bounds
             newValue.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
             layer.addSublayer(newValue)
         }
     }
-    private lazy var videoDataOutput: AVCaptureVideoDataOutput = {
-        let o = AVCaptureVideoDataOutput()
-        o.setSampleBufferDelegate(self, queue: videoDataQueue)
-        return o
-    }()
-    private let videoDataQueue = DispatchQueue.global(qos: .userInitiated)
-    private var movieOutput: AVCaptureMovieFileOutput?
-
-    private var audioOutput: AVCaptureAudioPreviewOutput? {
-        didSet {
-            setVolume(UserDefaults.standard.volume)
-        }
-    }
-    private func setVolume(_ value: Float) {
-        audioOutput?.volume = value
-        UserDefaults.standard.volume = value
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.wantsLayer = true
+        view.layerUsesCoreImageFilters = true
 
         NotificationCenter.default.addObserver(forName: AppDelegate.AppGlobalStateDidChange, object: nil, queue: nil) { [weak self] _ in
             self?.readyCaptureFrameIfNeeded()
             self?.changeWindowLevelIfNeeded()
         }
 
-        NotificationCenter.default.addObserver(forName: .AVCaptureSessionRuntimeError, object: nil, queue: nil) { n in
-            if n.object as? AVCaptureSession != self.session {
-                return
-            }
-            if let error = n.userInfo?["AVCaptureSessionErrorKey"] as? Error {
+        NotificationCenter.default.addObserver(forName: .AVCaptureSessionRuntimeError, object: nil, queue: nil) { [weak self] n in
+            guard let self = self, n.object as? AVCaptureSession == self.session?.session else { return }
+            if let error = n.userInfo?[AVCaptureSessionErrorKey] as? Error {
                 if let window = self.view.window {
                     self.presentError(error, modalFor: window, delegate: self, didPresent: #selector(self.closeWindow(_:)), contextInfo: nil)
                 } else {
@@ -67,7 +38,7 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
     override func viewDidLayout() {
         super.viewDidLayout()
         guard let layer = view.layer else { return }
-        previewLayer?.frame = layer.bounds
+        session?.previewLayer.frame = layer.bounds
     }
 
     override func viewDidAppear() {
@@ -84,63 +55,22 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
     }
 
-    func setupPreviewLayer() {
-        guard let device = device else { return }
-        self.session?.stopRunning()
-        let session = AVCaptureSession()
-
+    func setDevice(_ device: AVCaptureDevice) {
         do {
-            let input = try AVCaptureDeviceInput(device: device)
-            session.addInput(input)
-            readyCaptureFrameIfNeeded()
-
-            let audioOutput = AVCaptureAudioPreviewOutput()
-            self.audioOutput = audioOutput
-            session.addOutput(audioOutput)
-
-            previewLayer = AVCaptureVideoPreviewLayer(session: session)
-            view.layerUsesCoreImageFilters = true
+            session = try CaptureSession(inputDevice: device, captureFolder: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("Documents"))
             switchToCoolStage(nil)
-            self.session = session
-            session.startRunning()
+            session?.startRunning()
+            readyCaptureFrameIfNeeded()
         } catch {
-            NSLog("%@", "\(error)")
+            NSLog("%@", "error during CaptureSession.init: \(String(describing: error))")
         }
     }
 
     private var sampleBufferChromaKeyFilter: CIFilter? = nil
-    private var numberOfCapturesNeeded = 0
-    private let captureFolder = URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("Documents")
-
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        guard numberOfCapturesNeeded > 0 else {
-            return
-        }
-        numberOfCapturesNeeded -= 1
-
-        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
-
-        let image = CIImage(cvImageBuffer: imageBuffer)
-        sampleBufferChromaKeyFilter?.setValue(image, forKey: kCIInputImageKey)
-        guard let outputImage = sampleBufferChromaKeyFilter?.outputImage else { return }
-        let bitmap = NSBitmapImageRep(ciImage: outputImage)
-        let png = bitmap.representation(using: .png, properties: [:])
-        do {
-            try png?.write(to: captureFolder
-                .appendingPathComponent(UUID().uuidString)
-                .appendingPathExtension("png"))
-        } catch {
-            NSLog("%@", "\(error)")
-        }
-    }
 
     // as addOutput may slow playback performance, capture readiness should be controllable by user
     private func readyCaptureFrameIfNeeded() {
-        if appDelegate.enabledCaptureFrame {
-            session?.addOutput(videoDataOutput)
-        } else {
-            session?.removeOutput(videoDataOutput)
-        }
+        session?.captureEnabled = appDelegate.enabledCaptureFrame
     }
 
     private func changeWindowLevelIfNeeded() {
@@ -153,11 +83,11 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
 
     @IBAction func captureCurrentFrame(_ sender: AnyObject?) {
-        videoDataQueue.sync {numberOfCapturesNeeded += 1}
+        session?.captureCurrentFrame()
     }
 
     @IBAction func openCaptureFolder(_ sender: AnyObject?) {
-        NSWorkspace.shared.open(captureFolder)
+        session?.openCaptureFolder()
     }
 
     @objc private func closeWindow(_ sender: Any) {
@@ -165,17 +95,14 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
 
     @objc private func switchToCoolStage(_ sender: AnyObject?) {
-        sampleBufferChromaKeyFilter = ChromaKeyFilter.filter(0.15, green: 0.48, blue: 1, threshold: 0.4)
-        previewLayer?.filters = [ChromaKeyFilter.filter(0.15, green: 0.48, blue: 1, threshold: 0.4)]
+        session?.setCoreImageFilter(ChromaKeyFilter.filter(0.15, green: 0.48, blue: 1, threshold: 0.4))
     }
 
     @objc private func switchToCuteStage(_ sender: AnyObject?) {
-        sampleBufferChromaKeyFilter = ChromaKeyFilter.filter(1, green: 3/255.0, blue: 102/255.0, threshold: 0.3)
-        previewLayer?.filters = [ChromaKeyFilter.filter(1, green: 3/255.0, blue: 102/255.0, threshold: 0.3)]
+        session?.setCoreImageFilter(ChromaKeyFilter.filter(1, green: 3/255.0, blue: 102/255.0, threshold: 0.3))
     }
 
     @objc private func switchToPassionStage(_ sender: AnyObject?) {
-        sampleBufferChromaKeyFilter = ChromaKeyFilter.filter(251/255.0, green: 179/255.0, blue: 2/255.0, threshold: 0.3)
-        previewLayer?.filters = [ChromaKeyFilter.filter(251/255.0, green: 179/255.0, blue: 2/255.0, threshold: 0.3)]
+        session?.setCoreImageFilter(ChromaKeyFilter.filter(251/255.0, green: 179/255.0, blue: 2/255.0, threshold: 0.3))
     }
 }

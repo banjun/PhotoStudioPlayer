@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		13CD48001FE9CA96002F23F8 /* ChromaKeyFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CD47FF1FE9CA96002F23F8 /* ChromaKeyFilter.swift */; };
 		13CD48021FEA7E58002F23F8 /* BorderlessWindowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CD48011FEA7E58002F23F8 /* BorderlessWindowDelegate.swift */; };
+		EA288B9E244B523100F0B592 /* CaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA288B9D244B523100F0B592 /* CaptureSession.swift */; };
 		EA7073111FAC34FC00EF0DC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7073101FAC34FC00EF0DC9 /* AppDelegate.swift */; };
 		EA7073131FAC34FC00EF0DC9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7073121FAC34FC00EF0DC9 /* ViewController.swift */; };
 		EA7073151FAC34FC00EF0DC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7073141FAC34FC00EF0DC9 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* Begin PBXFileReference section */
 		13CD47FF1FE9CA96002F23F8 /* ChromaKeyFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyFilter.swift; sourceTree = "<group>"; };
 		13CD48011FEA7E58002F23F8 /* BorderlessWindowDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderlessWindowDelegate.swift; sourceTree = "<group>"; };
+		EA288B9D244B523100F0B592 /* CaptureSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSession.swift; sourceTree = "<group>"; };
 		EA70730D1FAC34FC00EF0DC9 /* PhotoStudioPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoStudioPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA7073101FAC34FC00EF0DC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA7073121FAC34FC00EF0DC9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				EA7073101FAC34FC00EF0DC9 /* AppDelegate.swift */,
 				13CD48011FEA7E58002F23F8 /* BorderlessWindowDelegate.swift */,
 				EA7073121FAC34FC00EF0DC9 /* ViewController.swift */,
+				EA288B9D244B523100F0B592 /* CaptureSession.swift */,
 				13CD47FF1FE9CA96002F23F8 /* ChromaKeyFilter.swift */,
 				EA7073141FAC34FC00EF0DC9 /* Assets.xcassets */,
 				EA7073161FAC34FC00EF0DC9 /* Main.storyboard */,
@@ -144,6 +147,7 @@
 				EA7073131FAC34FC00EF0DC9 /* ViewController.swift in Sources */,
 				13CD48021FEA7E58002F23F8 /* BorderlessWindowDelegate.swift in Sources */,
 				13CD48001FE9CA96002F23F8 /* ChromaKeyFilter.swift in Sources */,
+				EA288B9E244B523100F0B592 /* CaptureSession.swift in Sources */,
 				EA7073111FAC34FC00EF0DC9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
