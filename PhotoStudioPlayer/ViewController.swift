@@ -1,7 +1,7 @@
 import Cocoa
 import AVFoundation
 
-class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDelegate, NSMenuItemValidation {
     private var session: CaptureSession? {
         didSet {
             oldValue?.previewLayer.removeFromSuperlayer()
@@ -104,5 +104,20 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
 
     @objc private func switchToPassionStage(_ sender: AnyObject?) {
         session?.setCoreImageFilter(ChromaKeyFilter.filter(251/255.0, green: 179/255.0, blue: 2/255.0, threshold: 0.3))
+    }
+
+    @IBAction func toggleMuted(_ sender: AnyObject?) {
+        session?.muted.toggle()
+    }
+
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        switch menuItem.action {
+        case #selector(toggleMuted(_:)):
+            guard let session = session else { return false }
+            menuItem.state = session.muted ? .on : .off
+            return true
+        default:
+            return responds(to: menuItem.action)
+        }
     }
 }
