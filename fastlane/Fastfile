@@ -6,5 +6,6 @@ platform :mac do
     app = gym
     notarize(package: app)
     zip(path: app, output_path: Pathname(app).sub_ext("-#{get_version_number}.zip").to_s)
+    sh "which envman && envman add --key XCODEBUILD_ARCHIVE --value '#{lane_context[SharedValues::XCODEBUILD_ARCHIVE]}'" # for bitrise artifacts
   end
 end
