@@ -4,7 +4,7 @@ platform :mac do
   desc "archive mac app"
   lane :archive do
     app = gym
-    notarize(package: app)
+    notarize(package: app, verbose: true)
     zip(path: app, output_path: Pathname(app).sub_ext("-#{get_version_number}.zip").to_s)
     sh "if which envman; then envman add --key XCODEBUILD_ARCHIVE --value '#{lane_context[SharedValues::XCODEBUILD_ARCHIVE]}'; fi" # for bitrise artifacts
   end
