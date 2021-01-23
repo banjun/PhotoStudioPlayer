@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -401,6 +401,25 @@ DQ
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="switchToPassionStage:" target="Ady-hI-5gd" id="pZr-IF-TOO"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="E6X-cU-GZD"/>
+                                        <menuItem title="Red" id="SQF-N7-XHc">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="switchToRedStage:" target="Ady-hI-5gd" id="XDY-VC-ypD"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Green" id="u3x-3M-OFj">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="switchToGreenStage:" target="Ady-hI-5gd" id="lnL-OS-3NX"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Blue" id="Afv-HA-F73">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="switchToBlueStage:" target="Ady-hI-5gd" id="ogA-wq-ecs"/>
                                             </connections>
                                         </menuItem>
                                     </items>

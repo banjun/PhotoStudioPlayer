@@ -101,9 +101,21 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
     @objc private func switchToCuteStage(_ sender: AnyObject?) {
         session?.setCoreImageFilter(ChromaKeyFilter.filter(1, green: 3/255.0, blue: 102/255.0, threshold: 0.3))
     }
-
+    
     @objc private func switchToPassionStage(_ sender: AnyObject?) {
         session?.setCoreImageFilter(ChromaKeyFilter.filter(251/255.0, green: 179/255.0, blue: 2/255.0, threshold: 0.3))
+    }
+    
+    @IBAction private func switchToRedStage(_ sender: AnyObject?) {
+        session?.setCoreImageFilter(ChromaKeyFilter.filter(254/255.0, green: 1/255.0, blue: 0/255.0, threshold: 0.4))
+    }
+    
+    @IBAction private func switchToGreenStage(_ sender: AnyObject?) {
+        session?.setCoreImageFilter(ChromaKeyFilter.filter(2/255.0, green: 255/255.0, blue: 0/255.0, threshold: 0.4))
+    }
+    
+    @IBAction private func switchToBlueStage(_ sender: AnyObject?) {
+        session?.setCoreImageFilter(ChromaKeyFilter.filter(1/255.0, green: 1/255.0, blue: 253/255.0, threshold: 0.4))
     }
 
     @IBAction func toggleMuted(_ sender: AnyObject?) {
