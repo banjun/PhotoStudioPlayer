@@ -74,6 +74,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     private func availableDevices() -> [AVCaptureDevice] {
-        return AVCaptureDevice.devices().filter {$0.hasMediaType(.muxed)}
+        AVCaptureDevice.DiscoverySession(deviceTypes: [.externalUnknown], mediaType: .muxed, position: .unspecified).devices
     }
 }

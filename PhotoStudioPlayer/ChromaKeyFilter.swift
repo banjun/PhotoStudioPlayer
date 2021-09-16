@@ -7,6 +7,7 @@
 //
 
 import CoreImage
+import CoreImage.CIFilterBuiltins
 
  // see: https://developer.apple.com/library/content/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_filer_recipes/ci_filter_recipes.html
 class ChromaKeyFilter {
@@ -48,10 +49,9 @@ class ChromaKeyFilter {
             }
         }
 
-        let colorCube = CIFilter(name: "CIColorCube")
-        colorCube?.setValue(size, forKey: "inputCubeDimension")
-        // Set data for cube
-        colorCube?.setValue(data, forKey:"inputCubeData")
-        return colorCube!
+        let colorCube = CIFilter.colorCube()
+        colorCube.cubeDimension = Float(size)
+        colorCube.cubeData = data
+        return colorCube
     }
 }
