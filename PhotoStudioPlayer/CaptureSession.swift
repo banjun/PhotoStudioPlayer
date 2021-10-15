@@ -8,7 +8,7 @@ extension UserDefaults {
     }
 }
 
-final class CaptureSession: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
+final class CaptureSession: NSObject, AVCapturePhotoCaptureDelegate {
     let session = AVCaptureSession()
     private let input: AVCaptureDeviceInput
     let previewLayer: AVCaptureVideoPreviewLayer
@@ -50,28 +50,27 @@ final class CaptureSession: NSObject, AVCaptureVideoDataOutputSampleBufferDelega
 
     // MARK: - Capture frame screenshots
 
-    private lazy var videoDataOutput: AVCaptureVideoDataOutput = {
-        let o = AVCaptureVideoDataOutput()
-        o.setSampleBufferDelegate(self, queue: videoDataQueue)
+    private lazy var photoOutput: AVCapturePhotoOutput = {
+        let o = AVCapturePhotoOutput()
         return o
     }()
-    private let videoDataQueue = DispatchQueue.global(qos: .userInitiated)
     private let captureFolder: URL?
     private var coreImageFilterForCapture: CIFilter?
     var captureEnabled = false {
         didSet {
-            if captureEnabled && session.canAddOutput(videoDataOutput) {
-                session.addOutput(videoDataOutput)
+            if captureEnabled && session.canAddOutput(photoOutput) {
+                session.addOutput(photoOutput)
             }
             if !captureEnabled {
-                session.removeOutput(videoDataOutput)
+                session.removeOutput(photoOutput)
             }
         }
     }
     private var numberOfCapturesNeeded = 0
 
     func captureCurrentFrame() {
-        videoDataQueue.sync {numberOfCapturesNeeded += 1}
+        let settings = AVCapturePhotoSettings(format: [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]) // populates AVCapturePhoto.pixelBuffer
+        photoOutput.capturePhoto(with: settings, delegate: self)
     }
 
     func openCaptureFolder() {
@@ -79,22 +78,18 @@ final class CaptureSession: NSObject, AVCaptureVideoDataOutputSampleBufferDelega
         NSWorkspace.shared.open(captureFolder)
     }
 
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let captureFolder = captureFolder else { return }
-        guard numberOfCapturesNeeded > 0 else { return }
-        numberOfCapturesNeeded -= 1
-
-        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
-
-        let image = CIImage(cvImageBuffer: imageBuffer)
+        guard let pixelBuffer = photo.pixelBuffer else { return }
+        let image = CIImage(cvPixelBuffer: pixelBuffer)
         coreImageFilterForCapture?.setValue(image, forKey: kCIInputImageKey)
         guard let outputImage = coreImageFilterForCapture?.outputImage else { return }
         let bitmap = NSBitmapImageRep(ciImage: outputImage)
         let png = bitmap.representation(using: .png, properties: [:])
         do {
             try png?.write(to: captureFolder
-                .appendingPathComponent(UUID().uuidString)
-                .appendingPathExtension("png"))
+                            .appendingPathComponent(UUID().uuidString)
+                            .appendingPathExtension("png"))
         } catch {
             NSLog("%@", "\(error)")
         }
