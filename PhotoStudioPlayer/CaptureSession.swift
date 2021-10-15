@@ -83,6 +83,7 @@ final class CaptureSession: NSObject, AVCapturePhotoCaptureDelegate {
         guard let pixelBuffer = photo.pixelBuffer else { return }
         let image = CIImage(cvPixelBuffer: pixelBuffer)
         coreImageFilterForCapture?.setValue(image, forKey: kCIInputImageKey)
+        // TODO: apply rotation when the view is rotated on the ViewController
         guard let outputImage = coreImageFilterForCapture?.outputImage else { return }
         let bitmap = NSBitmapImageRep(ciImage: outputImage)
         let png = bitmap.representation(using: .png, properties: [:])

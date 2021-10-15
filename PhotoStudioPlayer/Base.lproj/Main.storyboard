@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -459,6 +459,18 @@ DQ
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <binding destination="Voe-Tx-rLC" name="value" keyPath="viewerAboveOtherApps" id="Nrt-A4-6p3"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Rotate Left" keyEquivalent="L" id="WA5-SH-c5b">
+                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="rotateLeft:" target="Ady-hI-5gd" id="yQi-nm-Anc"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Rotate Right" keyEquivalent="R" id="ZbR-CH-KUa">
+                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="rotateRight:" target="Ady-hI-5gd" id="mbT-pY-MrE"/>
                                             </connections>
                                         </menuItem>
                                     </items>
