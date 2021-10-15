@@ -13,6 +13,15 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
     }
 
+    private let rotations: [CGFloat] = [0, -.pi / 2, .pi, +.pi / 2]
+    private var rotation: CGFloat = 0 {
+        didSet {
+            session?.previewLayer.transform = CATransform3DMakeRotation(rotation, 0, 0, 1)
+            guard let layer = view.layer else { return }
+            session?.previewLayer.frame = layer.bounds
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.wantsLayer = true
@@ -120,6 +129,14 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
 
     @IBAction func toggleMuted(_ sender: AnyObject?) {
         session?.muted.toggle()
+    }
+
+    @IBAction func rotateLeft(_ sender: AnyObject?) {
+        rotation = rotations[((rotations.firstIndex(of: rotation)?.advanced(by: -1) ?? 0) + rotations.count) % rotations.count]
+    }
+
+    @IBAction func rotateRight(_ sender: AnyObject?) {
+        rotation = rotations[(rotations.firstIndex(of: rotation)?.advanced(by: 1) ?? 0) % rotations.count]
     }
 
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
