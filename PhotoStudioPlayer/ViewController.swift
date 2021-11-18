@@ -46,8 +46,21 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
 
     override func viewDidLayout() {
         super.viewDidLayout()
-        guard let layer = view.layer else { return }
-        session?.previewLayer.frame = layer.bounds
+        guard let layer = view.layer,
+              let previewLayer = session?.previewLayer,
+              let window = view.window else {
+                  view.window?.contentAspectRatio = .zero
+                  return
+              }
+        previewLayer.frame = layer.bounds
+
+        let previewSize = previewLayer.layerRectConverted(fromMetadataOutputRect: CGRect(x: 0, y: 0, width: 1, height: 1)).size
+        let previewRatio = previewSize.height / max(1, previewSize.width)
+        let windowRatio = window.contentAspectRatio.height / max(1, window.contentAspectRatio.width)
+        // window resize does not work if always set new value
+        if abs(windowRatio - previewRatio) >= 0.01 {
+            window.contentAspectRatio = previewSize
+        }
     }
 
     override func viewDidAppear() {
