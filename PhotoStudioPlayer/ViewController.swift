@@ -49,12 +49,12 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
         guard let layer = view.layer,
               let previewLayer = session?.previewLayer,
               let window = view.window else {
-                  view.window?.contentAspectRatio = .zero
-                  return
-              }
+            view.window?.contentAspectRatio = .zero
+            return
+        }
         previewLayer.frame = layer.bounds
 
-        let previewSize = previewLayer.layerRectConverted(fromMetadataOutputRect: CGRect(x: 0, y: 0, width: 1, height: 1)).size
+        let previewSize = previewLayer.layerRectConverted(fromMetadataOutputRect: CGRect(x: 0, y: 0, width: 1, height: 1)).applying(.init(rotationAngle: rotation)).size
         let previewRatio = previewSize.height / max(1, previewSize.width)
         let windowRatio = window.contentAspectRatio.height / max(1, window.contentAspectRatio.width)
         // window resize does not work if always set new value
