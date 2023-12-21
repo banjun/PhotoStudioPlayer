@@ -6,6 +6,14 @@ import CoreMediaIO
 
 let appDelegate = NSApp.delegate as! AppDelegate
 
+#if DEBUG
+import SwiftHotReload
+extension AppDelegate {
+    static let reloader = StandaloneReloader(monitoredSwiftFile: URL(fileURLWithPath: #filePath).deletingLastPathComponent()
+        .appendingPathComponent("RuntimeOverrides.swift"))
+}
+#endif
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     static let AppGlobalStateDidChange = NSNotification.Name(rawValue: "AppGlobalStateDidChange")

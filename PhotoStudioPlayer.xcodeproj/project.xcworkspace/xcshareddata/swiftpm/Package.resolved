@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "swifthotreload",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/banjun/SwiftHotReload",
+      "state" : {
+        "branch" : "main",
+        "revision" : "50d5b14f85b62598b4d2adac94753b957ce90f61"
+      }
+    }
+  ],
+  "version" : 2
+}

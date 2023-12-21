@@ -1,7 +1,14 @@
 import Cocoa
 import AVFoundation
 
+#if DEBUG
+import SwiftHotReload
+import Combine
+#endif
+
 class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDelegate, NSMenuItemValidation {
+    private var cancellables: Set<AnyCancellable> = []
+
     private var session: CaptureSession? {
         didSet {
             oldValue?.previewLayer.removeFromSuperlayer()
@@ -42,6 +49,14 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
                 }
             }
         }
+
+        #if DEBUG
+        AppDelegate.reloader.$dateReloaded.sink { [weak self] _ in self?.reload() }.store(in: &cancellables)
+        #endif
+    }
+
+    private func reload() {
+        // for AppDelegate.reloader
     }
 
     override func viewDidLayout() {
