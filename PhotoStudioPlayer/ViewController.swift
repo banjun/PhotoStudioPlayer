@@ -7,7 +7,9 @@ import Combine
 #endif
 
 class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDelegate, NSMenuItemValidation {
+#if DEBUG
     private var cancellables: Set<AnyCancellable> = []
+#endif
 
     private var session: CaptureSession? {
         didSet {
