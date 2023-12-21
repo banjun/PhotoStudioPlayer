@@ -3,13 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		13CD48001FE9CA96002F23F8 /* ChromaKeyFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CD47FF1FE9CA96002F23F8 /* ChromaKeyFilter.swift */; };
 		13CD48021FEA7E58002F23F8 /* BorderlessWindowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CD48011FEA7E58002F23F8 /* BorderlessWindowDelegate.swift */; };
 		EA288B9E244B523100F0B592 /* CaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA288B9D244B523100F0B592 /* CaptureSession.swift */; };
+		EA4788EA2AF137FC0021F99C /* SwiftHotReload in Frameworks */ = {isa = PBXBuildFile; productRef = EA4788E92AF137FC0021F99C /* SwiftHotReload */; };
 		EA7073111FAC34FC00EF0DC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7073101FAC34FC00EF0DC9 /* AppDelegate.swift */; };
 		EA7073131FAC34FC00EF0DC9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7073121FAC34FC00EF0DC9 /* ViewController.swift */; };
 		EA7073151FAC34FC00EF0DC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7073141FAC34FC00EF0DC9 /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 		13CD47FF1FE9CA96002F23F8 /* ChromaKeyFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyFilter.swift; sourceTree = "<group>"; };
 		13CD48011FEA7E58002F23F8 /* BorderlessWindowDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderlessWindowDelegate.swift; sourceTree = "<group>"; };
 		EA288B9D244B523100F0B592 /* CaptureSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSession.swift; sourceTree = "<group>"; };
+		EA4788EB2AF138BA0021F99C /* RuntimeOverrides.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeOverrides.swift; sourceTree = "<group>"; };
 		EA70730D1FAC34FC00EF0DC9 /* PhotoStudioPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoStudioPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA7073101FAC34FC00EF0DC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA7073121FAC34FC00EF0DC9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -27,6 +29,7 @@
 		EA7073171FAC34FC00EF0DC9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EA7073191FAC34FC00EF0DC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA70731A1FAC34FC00EF0DC9 /* PhotoStudioPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PhotoStudioPlayer.entitlements; sourceTree = "<group>"; };
+		EAD455B72B345E32002CF822 /* PhotoStudioPlayer-swifthotreload.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "PhotoStudioPlayer-swifthotreload.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA4788EA2AF137FC0021F99C /* SwiftHotReload in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				EA7073101FAC34FC00EF0DC9 /* AppDelegate.swift */,
+				EA4788EB2AF138BA0021F99C /* RuntimeOverrides.swift */,
 				13CD48011FEA7E58002F23F8 /* BorderlessWindowDelegate.swift */,
 				EA7073121FAC34FC00EF0DC9 /* ViewController.swift */,
 				EA288B9D244B523100F0B592 /* CaptureSession.swift */,
@@ -68,6 +73,7 @@
 				EA7073161FAC34FC00EF0DC9 /* Main.storyboard */,
 				EA7073191FAC34FC00EF0DC9 /* Info.plist */,
 				EA70731A1FAC34FC00EF0DC9 /* PhotoStudioPlayer.entitlements */,
+				EAD455B72B345E32002CF822 /* PhotoStudioPlayer-swifthotreload.entitlements */,
 			);
 			path = PhotoStudioPlayer;
 			sourceTree = "<group>";
@@ -88,6 +94,9 @@
 			dependencies = (
 			);
 			name = PhotoStudioPlayer;
+			packageProductDependencies = (
+				EA4788E92AF137FC0021F99C /* SwiftHotReload */,
+			);
 			productName = PhotoStudioPlayer;
 			productReference = EA70730D1FAC34FC00EF0DC9 /* PhotoStudioPlayer.app */;
 			productType = "com.apple.product-type.application";
@@ -98,7 +107,7 @@
 		EA7073051FAC34FC00EF0DC9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0910;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = banjun;
 				TargetAttributes = {
@@ -118,6 +127,9 @@
 				Base,
 			);
 			mainGroup = EA7073041FAC34FC00EF0DC9;
+			packageReferences = (
+				EA4788E82AF137FC0021F99C /* XCRemoteSwiftPackageReference "SwiftHotReload" */,
+			);
 			productRefGroup = EA70730E1FAC34FC00EF0DC9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -218,7 +230,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -273,10 +285,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -285,13 +298,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = PhotoStudioPlayer/PhotoStudioPlayer.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "PhotoStudioPlayer/PhotoStudioPlayer-swifthotreload.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = FPZK4WRGW7;
 				INFOPLIST_FILE = PhotoStudioPlayer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_SWIFT_FLAGS = "-Xfrontend -enable-implicit-dynamic -Xfrontend -enable-private-imports";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.banjun.PhotoStudioPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -311,7 +328,10 @@
 				DEVELOPMENT_TEAM = FPZK4WRGW7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = PhotoStudioPlayer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jp.banjun.PhotoStudioPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -340,6 +360,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EA4788E82AF137FC0021F99C /* XCRemoteSwiftPackageReference "SwiftHotReload" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/banjun/SwiftHotReload";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EA4788E92AF137FC0021F99C /* SwiftHotReload */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA4788E82AF137FC0021F99C /* XCRemoteSwiftPackageReference "SwiftHotReload" */;
+			productName = SwiftHotReload;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EA7073051FAC34FC00EF0DC9 /* Project object */;
 }
